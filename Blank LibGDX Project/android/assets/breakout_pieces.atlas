@@ -3,7 +3,7 @@ size: 120,92
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-board
+paddle
   rotate: false
   xy: 48, 8
   size: 64, 20
