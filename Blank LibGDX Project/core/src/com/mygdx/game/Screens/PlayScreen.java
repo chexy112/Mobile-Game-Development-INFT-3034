@@ -1,16 +1,17 @@
 package com.mygdx.game.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Actors.Ball;
+import com.mygdx.game.Actors.Brick;
+import com.mygdx.game.Actors.Paddle;
 import com.mygdx.game.BricksGame;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Scenes.Hud;
 
@@ -22,6 +23,12 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
     private Hud hud;
     private TextureAtlas atlas;
+    private Ball ball;
+    private Array<Brick> bricks;
+    private Brick brick;
+    private Paddle paddle;
+    private int score;
+    private Stage stage;
     public PlayScreen(BricksGame game){
 
         this.game = game;
@@ -33,7 +40,19 @@ public class PlayScreen implements Screen {
     }
 
     public void create(){
+        ball = new Ball(atlas);
+        bricks = new Array<Brick>();
+        paddle = new Paddle(atlas);
 
+        stage = new Stage();
+        stage.addActor(ball);
+        stage.addActor(paddle);
+
+//        brick = new Brick(atlas);
+//        for (int i = 0; i < BricksGame.V_WIDTH / brick.getWidth()+1; i++){
+//            Brick brick = new Brick(atlas);
+//            stage.addActor(brick);
+//        }
 
     }
 

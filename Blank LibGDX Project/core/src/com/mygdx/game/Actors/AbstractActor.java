@@ -1,8 +1,9 @@
 package com.mygdx.game.Actors;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class AbstractActor {
+public abstract class AbstractActor extends Actor {
 
     private TextureRegion textureRegion;
 
