@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -20,16 +21,34 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gameCam;
     private Viewport gamePort;
     private Hud hud;
+    private TextureAtlas atlas;
     public PlayScreen(BricksGame game){
 
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(BricksGame.V_WIDTH,BricksGame.V_HEIGHT, gameCam);
         hud = new Hud(game.batch);
+        atlas = new TextureAtlas("breakout_pieces.atlas");
+
     }
 
     @Override
     public void show() {
+
+    }
+
+    public void handleInput(float dt){
+        if (Gdx.input.isTouched()){
+            gameCam.position.x += 100 * dt;
+        }
+
+    }
+
+    public void update(float dt){
+        handleInput(dt);
+
+        gameCam.update();
+
 
     }
 

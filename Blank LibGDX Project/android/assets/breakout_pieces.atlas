@@ -1,0 +1,47 @@
+breakout_pieces.png
+size: 120,92
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+board
+  rotate: false
+  xy: 48, 8
+  size: 64, 20
+  orig: 64, 20
+  offset: 0, 0
+  index: -1
+blue-brick
+  rotate: false
+  xy: 8, 8
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+green-brick
+  rotate: false
+  xy: 8, 28
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+red-brick
+  rotate: false
+  xy: 8, 48
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+purple-brick
+  rotate: false
+  xy: 8, 68
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+ball
+  rotate: false
+  xy: 47, 30
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1

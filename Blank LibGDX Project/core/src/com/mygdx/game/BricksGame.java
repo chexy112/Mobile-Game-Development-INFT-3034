@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.MenuScreen;
 
 public class BricksGame extends Game {
 
@@ -20,11 +21,10 @@ public class BricksGame extends Game {
     public static final int V_HEIGHT = 480;
 
 
-
 	@Override
 	public void create () {
 	    batch = new SpriteBatch();
-	    setScreen(new PlayScreen(this));
+	    setScreen(new MenuScreen(this));
 
 	}
 
