@@ -62,14 +62,8 @@ public class MenuScreen implements Screen {
 
         game.batch.begin();
         stage.draw();
-        if (playButton.isPressed()){
-
-            game.setScreen(new PlayScreen(game));
-        }
-        if (exitButton.isPressed()){
-
-            Gdx.app.exit();
-        }
+        if (playButton.isPressed()) game.setScreen(new PlayScreen(game));
+        if (exitButton.isPressed()) Gdx.app.exit();
         game.batch.end();
 
     }

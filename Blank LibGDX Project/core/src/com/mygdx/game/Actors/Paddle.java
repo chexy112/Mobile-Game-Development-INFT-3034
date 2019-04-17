@@ -1,19 +1,24 @@
 package com.mygdx.game.Actors;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Paddle extends AbstractActor{
+
+public class Paddle extends Actor {
     public World world;
     public Body b2body;
+    private TextureRegion textureRegion;
 
     public Paddle(TextureAtlas atlas, World world){
 
-        super(atlas.findRegion("paddle"));
+        this.textureRegion = atlas.findRegion("paddle");
+
         this.world = world;
         definePaddle();
     }

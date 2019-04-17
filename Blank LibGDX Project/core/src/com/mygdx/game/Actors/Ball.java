@@ -4,16 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
-public class Ball extends AbstractActor {
+public class Ball extends Actor {
 
+    private TextureRegion textureRegion;
     private Texture textureBall;
     private Sprite spriteBall = new Sprite();
 
     public Ball(TextureAtlas atlas){
 
-        super(atlas.findRegion("ball"));
+        this.textureRegion = atlas.findRegion("ball");
 
         textureBall = textureRegion.getTexture();
         spriteBall.setTexture(textureBall);
