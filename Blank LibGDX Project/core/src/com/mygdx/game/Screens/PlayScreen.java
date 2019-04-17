@@ -4,12 +4,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -33,13 +35,14 @@ public class PlayScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
-//    private TextureAtlas atlas;
-//    private Ball ball;
+    private TextureAtlas atlas;
+    private TextureRegion textureRegion;
+    private Ball ball;
 //    private Array<Brick> bricks;
 //    private Brick brick;
 //    private Paddle paddle;
 //    private int score;
-//    private Stage stage;
+    private Stage stage;
 
     //box2d variables
     private World world;
@@ -47,7 +50,7 @@ public class PlayScreen implements Screen {
 
 
     public PlayScreen(BricksGame game){
-//        atlas = new TextureAtlas("breakout_pieces.atlas");
+        atlas = new TextureAtlas(Gdx.files.internal("breakout_pieces.atlas"));
 
         this.game = game;
 
@@ -74,12 +77,13 @@ public class PlayScreen implements Screen {
     }
 
     public void create(){
-//        ball = new Ball(atlas);
+        ball = new Ball(atlas);
 //        bricks = new Array<Brick>();
 //        paddle = new Paddle(atlas);
 //
-//        stage = new Stage();
-//        stage.addActor(ball);
+        stage = new Stage();
+        stage.addActor(ball);
+
 //        stage.addActor(paddle);
 
 //        brick = new Brick(atlas);
@@ -108,6 +112,8 @@ public class PlayScreen implements Screen {
 
     public void update(float dt){
         handleInput(dt);
+
+        world.step(1/60f,6,2);
 
         gameCam.update();
         renderer.setView(gameCam);
