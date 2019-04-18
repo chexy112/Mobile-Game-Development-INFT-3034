@@ -1,5 +1,6 @@
 package com.mygdx.game.Actors;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -8,32 +9,34 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.mygdx.game.BricksGame;
 
 
 public class Paddle extends Actor {
-    public World world;
-    public Body b2body;
-    private TextureRegion textureRegion;
+
+    private TextureRegion paddleTextureRegion;
 
     public Paddle(TextureAtlas atlas, World world){
 
-        this.textureRegion = atlas.findRegion("paddle");
-
-        this.world = world;
-        definePaddle();
+        this.paddleTextureRegion = atlas.findRegion("paddle");
+        create();
     }
 
-    private void definePaddle() {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(32,32);
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
+    private void create() {
+        //setting paddle location size
+        setSize(paddleTextureRegion.getRegionWidth(), paddleTextureRegion.getRegionHeight());
+        setBounds(BricksGame.V_WIDTH, BricksGame.V_HEIGHT, getWidth(), getHeight());
+        setTouchable(Touchable.enabled);
+        float initX = BricksGame.V_WIDTH / 2 - getWidth() / 2;
+        float initY = 32 + getHeight()/2;
+        setX(initX);
+        setY(initY);
+    }
 
-        FixtureDef fdef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(5);
 
-        fdef.shape = shape;
-        b2body.createFixture(fdef);
+    @Override
+    public void draw (Batch batch, float parentAlpha){
+        batch.draw(paddleTextureRegion, getX(), getY());
     }
 }

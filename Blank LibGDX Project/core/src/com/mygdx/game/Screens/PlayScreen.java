@@ -10,11 +10,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Actors.Ball;
-import com.mygdx.game.Actors.Brick;
 import com.mygdx.game.Actors.Paddle;
 import com.mygdx.game.BricksGame;
 import com.badlogic.gdx.Gdx;
@@ -24,8 +24,8 @@ import com.mygdx.game.Scenes.Hud;
 public class PlayScreen implements Screen {
 
     private BricksGame game;
-    private OrthographicCamera gameCam;
-    private Viewport gamePort;
+    private OrthographicCamera camera;
+    private Viewport viewport;
     private Hud hud;
 
     private TmxMapLoader mapLoader;
@@ -33,16 +33,14 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
 
     private TextureAtlas atlas;
-    private Ball ball;
-//    private Array<Brick> bricks;
-//    private Brick brick;
-//    private Paddle paddle;
-//    private int score;
+
     private Stage stage;
 
     //box2d variables
     private World world;
     private Box2DDebugRenderer b2dr;
+
+    private Group group;
 
 
     public PlayScreen(BricksGame game){
@@ -50,11 +48,48 @@ public class PlayScreen implements Screen {
 
         this.game = game;
 
+
+    }
+
+    public void create(){
+//        bricks = new Array<Brick>();
+//        paddle = new Paddle(atlas);
+//
+//        stage.addActor(paddle);
+
+//        brick = new Brick(atlas);
+//        for (int i = 0; i < BricksGame.V_WIDTH / brick.getWidth()+1; i++){
+//            Brick brick = new Brick(atlas);
+//            stage.addActor(brick);
+//        }
+
         //create cam
-        gameCam = new OrthographicCamera();
+        camera = new OrthographicCamera();
 
         //create a FitViewport
-        gamePort = new FitViewport(BricksGame.V_WIDTH,BricksGame.V_HEIGHT, gameCam);
+        viewport = new FitViewport(BricksGame.V_WIDTH,BricksGame.V_HEIGHT, camera);
+
+        stage = new Stage(viewport, game.batch);
+
+        //creating group to store all actors
+        group = new Group();
+        Gdx.gl20.glLineWidth(4);
+        group.setDebug(true);
+        group.setWidth(BricksGame.V_WIDTH);
+        group.setHeight(BricksGame.V_HEIGHT);
+
+        //put group in stage
+        stage.addActor(group);
+
+        //set up ball actor
+        Ball ball = new Ball(atlas);
+        Paddle paddle = new Paddle(atlas, world);
+
+
+        Gdx.app.log("MyGdxGame: "," ball width: " + ball.getWidth());
+
+        group.addActor(ball);
+        group.addActor(paddle);
 
         //create HUD for scores
         hud = new Hud(game.batch);
@@ -66,27 +101,10 @@ public class PlayScreen implements Screen {
 
         //set initial game camera position
 
-        gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
+        camera.position.set(viewport.getWorldWidth()/2, viewport.getWorldHeight()/2, 0);
 
         world = new World(new Vector2(0,0),true);
         b2dr = new Box2DDebugRenderer();
-    }
-
-    public void create(){
-        ball = new Ball(atlas);
-//        bricks = new Array<Brick>();
-//        paddle = new Paddle(atlas);
-//
-        stage = new Stage();
-        stage.addActor(ball);
-
-//        stage.addActor(paddle);
-
-//        brick = new Brick(atlas);
-//        for (int i = 0; i < BricksGame.V_WIDTH / brick.getWidth()+1; i++){
-//            Brick brick = new Brick(atlas);
-//            stage.addActor(brick);
-//        }
 
     }
 
@@ -111,8 +129,8 @@ public class PlayScreen implements Screen {
 
         world.step(1/60f,6,2);
 
-        gameCam.update();
-        renderer.setView(gameCam);
+        camera.update();
+        renderer.setView(camera);
 
     }
 
@@ -126,7 +144,10 @@ public class PlayScreen implements Screen {
         renderer.render();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+
         hud.stage.draw();
+        stage.draw();
+
 
 
     }
@@ -134,7 +155,7 @@ public class PlayScreen implements Screen {
     @Override
     public void resize(int width, int height) {
 
-        gamePort.update(width,height);
+        viewport.update(width,height);
     }
 
     @Override

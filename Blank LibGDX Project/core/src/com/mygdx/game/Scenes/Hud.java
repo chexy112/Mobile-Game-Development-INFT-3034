@@ -20,18 +20,14 @@ public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport;
 
-    //Mario score/time Tracking Variables
-    private Integer worldTimer;
-    private boolean timeUp; // true when the world timer reaches 0
-    private float timeCount;
-    private static Integer score;
+
+    private int worldTimer;
+    private static int score;
+    private int timeCount;
 
     //Scene2D widgets
-    private Label countdownLabel;
     private static Label scoreLabel;
     private Label timeLabel;
-    private Label levelLabel;
-    private Label worldLabel;
     private Label playerLabel;
 
     public Hud(SpriteBatch sb){
@@ -52,23 +48,19 @@ public class Hud implements Disposable {
         //make the table fill the entire stage
         table.setFillParent(true);
 
-        //define our labels using the String, and a Label style consisting of a font and color
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //define labels using the String, and a Label style consisting of a font and color
         scoreLabel =new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        worldLabel = new Label("CURRENT LEVEL", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        playerLabel = new Label("PLAYER", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+         playerLabel = new Label("PLAYER", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(playerLabel).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
+
         table.add(timeLabel).expandX().padTop(10);
         //add a second row to our table
         table.row();
         table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
-        table.add(countdownLabel).expandX();
+
 
         //add our table to the stage
         stage.addActor(table);
@@ -80,10 +72,8 @@ public class Hud implements Disposable {
         if(timeCount >= 1){
             if (worldTimer > 0) {
                 worldTimer--;
-            } else {
-                timeUp = true;
             }
-            countdownLabel.setText(String.format("%03d", worldTimer));
+
             timeCount = 0;
         }
     }
@@ -96,5 +86,4 @@ public class Hud implements Disposable {
     @Override
     public void dispose() { stage.dispose(); }
 
-    public boolean isTimeUp() { return timeUp; }
 }
