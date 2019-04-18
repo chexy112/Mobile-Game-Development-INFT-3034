@@ -16,19 +16,25 @@ public class Brick extends Actor {
             "blue-brick", "red-brick", "purple-brick", "green-brick"
     };
 
-    public Brick(TextureAtlas atlas){
+    public Brick(TextureAtlas atlas, int i){
 
+        //randomly generate different coloured bricks
         this.brickTextureRegion = atlas.findRegion(BRICKS[new Random().nextInt(BRICKS.length)]);
+        create(i);
     }
 
-    public void create(){
+    //create bricks
+    public void create(int i){
 
         setSize(brickTextureRegion.getRegionWidth(), brickTextureRegion.getRegionHeight());
 
-        setBounds(BricksGame.V_WIDTH,BricksGame.V_HEIGHT,getWidth(),getHeight());
+        setBounds(BricksGame.V_WIDTH,BricksGame.V_HEIGHT-16-getHeight()/2,getWidth(),getHeight());
         setTouchable(Touchable.enabled);
-        setX(0);
-        setY(0);
+
+        //setting each brick's position
+        setX(getWidth()*(i % 20));
+        setY(BricksGame.V_HEIGHT-16-getHeight()/2 - getHeight()* (float)(Math.floor( i / 20)));
+
 
     }
 

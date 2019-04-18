@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.BricksGame;
 
@@ -23,11 +22,14 @@ public class Ball extends Actor {
 
     }
 
+    //create ball
     public void create(){
 
         setSize(ballTextureRegion.getRegionWidth(), ballTextureRegion.getRegionHeight());
         setBounds(BricksGame.V_WIDTH,BricksGame.V_HEIGHT,getWidth(),getHeight());
         setTouchable(Touchable.enabled);
+
+        //set ball initial position
         float initX = BricksGame.V_WIDTH / 2 - getWidth() / 2;
         float initY = 32 + 20 + 8;
         setX(initX);

@@ -13,19 +13,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.graphics.Color;
 
 
-
+//hud is for score and player keeps
 public class Hud implements Disposable {
 
-    //Scene2D.ui Stage and its own Viewport for HUD
+
     public Stage stage;
     private Viewport viewport;
-
 
     private int worldTimer;
     private static int score;
     private int timeCount;
 
-    //Scene2D widgets
     private static Label scoreLabel;
     private Label timeLabel;
     private Label playerLabel;
@@ -37,7 +35,7 @@ public class Hud implements Disposable {
         score = 0;
 
         //setup the HUD viewport using a new camera seperate from our gamecam
-        //define our stage using that viewport and our games spritebatch
+        //define stage using that viewport and our games spritebatch
         viewport = new FitViewport(BricksGame.V_WIDTH, BricksGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 

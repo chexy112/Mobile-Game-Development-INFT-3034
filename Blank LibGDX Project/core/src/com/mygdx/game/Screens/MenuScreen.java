@@ -25,21 +25,18 @@ public class MenuScreen implements Screen {
         skin = new Skin(Gdx.files.internal("gui/uiskin.json"));
         stage = new Stage();
 
+        //creating play button
         playButton = new TextButton("PLAY", skin, "default");
         playButton.setWidth(200f);
         playButton.setHeight(200f);
         playButton.setPosition(Gdx.graphics.getWidth() /2 - playButton.getWidth(),
                 Gdx.graphics.getHeight()/2 - 10f);
 
-
-
-
+        //creating exit button
         exitButton = new TextButton("EXIT", skin, "default");
         exitButton.setWidth(200f);
         exitButton.setHeight(200f);
         exitButton.setPosition(Gdx.graphics.getWidth() /2 , Gdx.graphics.getHeight()/2 - 10f);
-
-
 
         stage.addActor(playButton);
         stage.addActor(exitButton);
@@ -62,7 +59,9 @@ public class MenuScreen implements Screen {
 
         game.batch.begin();
         stage.draw();
+        //play button takes us to play screen
         if (playButton.isPressed()) game.setScreen(new PlayScreen(game));
+        //exit button exits programme
         if (exitButton.isPressed()) Gdx.app.exit();
         game.batch.end();
 
@@ -90,6 +89,8 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        game.dispose();
+        stage.dispose();
+        skin.dispose();
     }
 }
